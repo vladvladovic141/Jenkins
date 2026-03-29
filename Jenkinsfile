@@ -1,5 +1,6 @@
 pipeline {
     agent any
+
     stages {
         stage('install-pip-deps') {
             steps {
@@ -14,20 +15,44 @@ pipeline {
                 }
             }
         }
-
         stage('deploy-to-dev') {
             steps {
-                script {
-                    deployService("dev", "7001")
-                }
+                script { deployService("dev", "7001") }
             }
         }
-
         stage('tests-on-dev') {
             steps {
-                script {
-                    runTests("dev")
-                }
+                script { runTests("dev") }
+            }
+        }
+        stage('deploy-to-stg') {
+            steps {
+                script { deployService("stg", "7002") }
+            }
+        }
+        stage('tests-on-stg') {
+            steps {
+                script { runTests("stg") }
+            }
+        }
+        stage('deploy-to-preprod') {
+            steps {
+                script { deployService("preprod", "7003") }
+            }
+        }
+        stage('tests-on-preprod') {
+            steps {
+                script { runTests("preprod") }
+            }
+        }
+        stage('deploy-to-prod') {
+            steps {
+                script { deployService("prod", "7004") }
+            }
+        }
+        stage('tests-on-prod') {
+            steps {
+                script { runTests("prod") }
             }
         }
     }
