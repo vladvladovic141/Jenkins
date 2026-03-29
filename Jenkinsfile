@@ -4,6 +4,14 @@ pipeline {
         stage('install-pip-deps') {
             steps {
                 echo "Installing all required dependencies.."
+                git 'https://github.com/mtararujs/python-greetings'
+                bat 'dir'
+                script {
+                    bat """
+                        python -m venv venv
+                        .\\venv\\Scripts\\python -m pip install -r requirements.txt
+                    """
+                }
             }
         }
 
