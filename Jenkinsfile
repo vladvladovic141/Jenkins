@@ -4,7 +4,7 @@ pipeline {
         stage('install-pip-deps') {
             steps {
                 echo "Installing all required dependencies.."
-                git 'https://github.com/mtararujs/python-greetings'
+                git branch: 'main', url: 'https://github.com/mtararujs/python-greetings'
                 bat 'dir'
                 script {
                     bat """
